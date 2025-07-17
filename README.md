@@ -58,7 +58,22 @@ After downloading, the light curves undergo a preprocessing pipeline to ensure c
   ```python
   flux = np.convolve(flux, np.ones(5)/5, mode='same')
   ```
-
+  
+- **Determining Optimal Length for Padding/Truncation**:
+  To select a length that minimizes information loss, the distribution of light curve lengths is analyzed:
+  ```python
+  curves = download_curves(get_kepids('all'), 10)
+  normalized = normalize_curves(curves)
+  lengths = [len(curve.flux) for curve in normalized]
+  
+  plt.hist(lengths, bins=50)
+  plt.xlabel("Time series length")
+  plt.ylabel("Frequency")
+  plt.title("Distribution of Kepler light curve lengths")
+  plt.show()
+  ```
+  The analysis indicated that a length of approximately 65,000 samples offers a reasonable trade-off.
+  
 - **Length Normalization (Padding/Truncation)**:  
   All light curves are adjusted to a fixed length to ensure uniform input size:
   ```python
