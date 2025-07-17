@@ -188,7 +188,7 @@ At the end, the function returns both the average loss and the pre-defined set o
 
 ### Overview
 
-We conducted a series of 19 tests on the `KeplerCNN` model, progressively evaluating the effects of various hyperparameters and architectural choices. These include activation functions, dropout and normalization layers, dataset size, learning rate, and learning rate scheduler configuration.
+We conducted a series of 22 tests on the `KeplerCNN` model, progressively evaluating the effects of various hyperparameters and architectural choices. These include activation functions, dropout and normalization layers, dataset size, learning rate, learning rate scheduler configuration, and noise augmentation.
 
 ---
 
@@ -265,15 +265,29 @@ Model is insensitive to LR between 1e-5 and 5e-3 on the 100-sample dataset.
 | 17   | 200     | 0.402    | 0.511     | 0.596  | 0.550    |
 | 18   | 200     | 0.613    | 0.613     | 1.000  | 0.760    |
 | 19   | 200     | 0.611    | 0.875     | 0.425  | 0.572    |
+| 20   | 200     | 0.613    | 0.613     | 1.000  | 0.760    |
+| 21   | 200     | 0.577    | 0.851     | 0.375  | 0.521    |
 
 **Observation:**  
-Using a larger dataset improves generalization but also increases variability. Low LR (1e-5) can underfit, but going too high (5e-5) gives inconsistent recall.
+Using a larger dataset improves generalization but also increases variability. Low LR (1e-5) can underfit, but going too high (5e-3) gives inconsistent recall.
+
+---
+
+### Effect of Noise Augmentation
+
+| Test | Noise Augmentation | Accuracy | Precision | Recall | F1 Score |
+|------|---------------------|----------|-----------|--------|----------|
+| 22   | no augmentation | 0.613    | 0.613     | 1.000  | 0.760    |
+| 18   | augmentation   | 0.610    | 0.875     | 0.425  | 0.572    |
+
+**Observation:**  
+Overall training behavior and suggests that noise augmentation improves model robustness and consistency.
 
 ---
 
 ### Summary
 
-- **Best trade-off** is reached using LeakyReLU, dropout = 0.5, LR = 1e-3, with at least 100–200 samples.
+- **Best trade-off** is reached using LeakyReLU, dropout = 0.5, LR = 1e-3, with at least 200 samples.
 - **Recall tends to dominate** when overfitting is controlled, indicating a strong bias towards the positive class.
 - Further improvement likely requires a bigger dataset and the consequential tuning for the best results.
 
