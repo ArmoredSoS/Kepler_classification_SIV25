@@ -74,13 +74,15 @@ The processed flux arrays are then stored as NumPy arrays and collectively form 
 
 
 
-### Model
+## Model
 
 
 
-### Testing procedure
+## Training and testing procedure
 
+### Training loop
 
+### Evaluation loop
 
 ### Results
 
