@@ -177,7 +177,7 @@ At the end, the function returns both the average loss and the pre-defined set o
 
 ## Results
 
-## Experimental Results and Discussion
+## Experimental Results
 
 ### Overview
 
