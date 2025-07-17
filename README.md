@@ -14,6 +14,7 @@ The core model is a one-dimensional convolutional neural network (1D CNN), enhan
 - **Global average pooling**: to condense feature maps before classification  
 - **Flattening layer**: to transform the pooled features into a vector  
 - **Fully connected (linear) layer**: to produce the final classification output
+- **Weight initiliazation**: using Kaiming normal distribution 
 
 ## Implementation and code review
 
@@ -94,12 +95,38 @@ This reshaping step is critical to match the expected input shape of PyTorch con
 
 ## Model
 
+The model implemented is a 1D Convolutional Neural Network (CNN) designed for light curve analysis. It includes the following key components and architectural choices:
 
+- **Convolutional Layer**: A 1D convolution with configurable input channels, output channels, kernel size, and stride to extract features from the input time series.
+- **Dropout Layers**: applied to reduce overfitting by randomly deactivating neurons during training.
+- **Batch Normalization**: used after dropout to normalize activations, improving training stability and convergence.
+- **Activation Function**: customizable non-linearity applied after normalization.
+- **Pooling Layers**: max pooling reduces temporal resolution while preserving important features; adaptive average pooling reduces output dimension to a fixed size.
+- **Flatten Layer**: converts the pooled feature maps into a 1D vector.
+- **Fully Connected Layer**: outputs class scores for binary classification.
+
+An optional weight initialization function can be applied during model instantiation to improve training dynamics. The model architecture is kept minimal to avoid overfitting, especially when training on limited datasets.
+```python
+self.conv = nn.Sequential(    
+  nn.Conv1d(input_ch, out_ch, kernel_size, stride), #Convolutional layer
+  nn.Dropout(p = dropout_rate), #Dropout layer after convolutional
+  nn.BatchNorm1d(out_ch), #Normalization
+  activation(), #Tunable activation function
+ 
+  nn.MaxPool1d(pool_kernel),
+  nn.AdaptiveAvgPool1d(1),
+  nn.Flatten(),
+
+  nn.Dropout(p = dropout_rate), #Dropout layer before linear
+  nn.Linear(out_ch, output_dim)                
+  )      
+  if init_weight: init_weights(self)
+```
 
 ## Training and testing procedure
 
 ### Training loop
-
+Scheduler, optimizer, weight initialization, noise
 ### Evaluation loop
 
 ## Results
