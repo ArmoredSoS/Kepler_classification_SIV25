@@ -119,8 +119,8 @@ self.conv = nn.Sequential(
 
   nn.Dropout(p = dropout_rate), #Dropout layer before linear
   nn.Linear(out_ch, output_dim)                
-  )      
-  if init_weight: init_weights(self)
+)      
+if init_weight: init_weights(self)
 ```
 
 ## Training and testing procedure
