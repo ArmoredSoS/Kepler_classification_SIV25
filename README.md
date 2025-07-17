@@ -125,8 +125,20 @@ if init_weight: init_weights(self)
 
 ## Training and testing procedure
 
+The model is trained and evaluated over 100 epochs. The optimizer used is `AdamW`, chosen for its robustness in handling weight decay and stability during training.  
+A learning rate scheduler (`ReduceLROnPlateau`) is used to lower the learning rate when the validation loss stagnates, helping the model converge.
+
+During each epoch, the following five evaluation metrics are computed:
+- **Accuracy**: Measures the overall proportion of correct predictions.
+- **Precision**: Indicates the model's ability to avoid false positives.
+- **Recall**: Indicates the model's ability to detect true positives (avoiding false negatives).
+- **F1-score**: Harmonic mean of precision and recall, offering a balanced measure.
+- **ROC AUC**: Evaluates the model's ability to distinguish between classes (separability).
+
+After training, the epoch that achieved the best (lowest) validation loss is identified, and the corresponding metrics are reported as the model's best performance.
+
 ### Training loop
-Scheduler, optimizer, weight initialization, noise
+noise
 ### Evaluation loop
 
 ## Results
