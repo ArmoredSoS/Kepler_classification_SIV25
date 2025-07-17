@@ -138,7 +138,7 @@ self.conv = nn.Sequential(
 if init_weight: init_weights(self)
 ```
 
-## Training and testing procedure
+## Training and testing procedures
 
 The model is trained and evaluated over 100 epochs. The optimizer used is `AdamW`, chosen for its robustness in handling weight decay and stability during training.  
 A learning rate scheduler (`ReduceLROnPlateau`) is used to lower the learning rate when the validation loss stagnates, helping the model converge.
