@@ -1,4 +1,4 @@
-# A Minimalist Approach to Kepler Objects of Interest Classification Using 1D Convolutional Neural Networks
+# A Minimalist Approach to Kepler Objects of Interest Classification Using a 1D Convolutional Neural Network
 
 ## Objective and Methodology
 
