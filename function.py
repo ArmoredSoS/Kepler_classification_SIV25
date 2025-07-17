@@ -193,8 +193,7 @@ def evaluate_model(model: nn.Module, loader: data.DataLoader, criteria: nn.modul
         "accuracy": accuracy_score(all_labels, all_preds),
         "precision": precision_score(all_labels, all_preds),
         "recall": recall_score(all_labels, all_preds),
-        "f1_score": f1_score(all_labels, all_preds),
-        "roc_auc": roc_auc_score(all_labels, all_preds),
+        "f1_score": f1_score(all_labels, all_preds)
     }
 
     return metrics, avg_loss

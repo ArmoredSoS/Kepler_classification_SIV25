@@ -16,8 +16,8 @@ def main():
     model = KeplerCNN(activation = nn.LeakyReLU, dropout_rate = 0.5)
     model.apply(init_weights)
     
-    optimizer = optim.AdamW(model.parameters(), lr=1e-5)
-    #Scheduler to reduce lr when plateaus are reached
+    optimizer = optim.AdamW(model.parameters(), lr=1e-3)
+    #Scheduler to reduce lr when plateaus are reached, has little impact in final results, probably requires bigger dataset
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2)
     
     criterion = nn.CrossEntropyLoss()
@@ -26,6 +26,8 @@ def main():
     best_metrics = {}
     best_epoch = 0
     best_loss = inf
+    patience = 10
+    stale = 0
 
     for epoch in range(n_epochs):
         training_loop(model, train_dl, optimizer, criterion, "cuda", noise=True)
@@ -37,6 +39,10 @@ def main():
             best_metrics = evaluation
             best_epoch = epoch + 1
             #torch.save(model.state_dict(), "best_model.pth")
+        else:
+            stale += 1
+            if stale >= patience:
+                break #Not elegant but it works
     
         scheduler.step(loss)
         print(f"Epoch {epoch+1}, Metrics: {evaluation}")
