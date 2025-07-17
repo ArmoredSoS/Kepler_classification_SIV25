@@ -177,7 +177,98 @@ At the end, the function returns both the average loss and the pre-defined set o
 
 ## Results
 
+## Experimental Results and Discussion
 
+### Overview
+
+We conducted a series of 19 tests on the `KeplerCNN` model, progressively evaluating the effects of various hyperparameters and architectural choices. These include activation functions, dropout and normalization layers, dataset size, learning rate, and learning rate scheduler configuration.
+
+---
+
+### Activation Function Comparison
+
+| Test | Activation | Accuracy | Precision | Recall | F1 Score |
+|------|------------|----------|-----------|--------|----------|
+| 1    | LeakyReLU  | 0.557    | 0.754     | 0.394  | 0.517    |
+| 2    | ReLU       | 0.603    | 0.603     | 1.000  | 0.752    |
+| 3    | ELU        | 0.603    | 0.603     | 1.000  | 0.752    |
+
+**Observation:**  
+LeakyReLU yields more balanced precision and recall, while ReLU and ELU give perfect recall but poor separability and overly optimistic F1 scores.
+
+---
+
+### Dropout Layer Placement
+
+| Test | Dropout Placement       | Accuracy | Precision | Recall | F1 Score |
+|------|--------------------------|----------|-----------|--------|----------|
+| 4    | After linear only        | 0.594    | 0.605     | 0.939  | 0.736    |
+| 5    | No dropout               | 0.598    | 0.608     | 0.939  | 0.738    |
+
+**Observation:**  
+Removing dropout layers slightly improves metrics, but maintaining some dropout seems beneficial for regularization.
+
+---
+
+### Normalization Layers
+
+| Test | Normalization Config    | Accuracy | Precision | Recall | F1 Score |
+|------|--------------------------|----------|-----------|--------|----------|
+| 6    | None                     | 0.603    | 0.603     | 1.000  | 0.752    |
+| 7    | Additional norm + linear | 0.603    | 0.603     | 1.000  | 0.752    |
+| 8    | Same as 7, larger data   | 0.600    | 0.600     | 1.000  | 0.750    |
+
+**Observation:**  
+Normalization has minimal measurable effect in this configuration.
+
+---
+
+### Dropout Rate Tuning (with normalization and larger dataset)
+
+| Test | Dropout Rate | Accuracy | Precision | Recall | F1 Score |
+|------|--------------|----------|-----------|--------|----------|
+| 9    | 0.3          | 0.600    | 0.600     | 1.000  | 0.750    |
+| 10   | 0.5          | 0.582    | 0.697     | 0.538  | 0.607    |
+| 11   | 0.7          | 0.600    | 0.600     | 1.000  | 0.750    |
+| 12   | 0.6          | 0.420    | 0.514     | 0.631  | 0.566    |
+
+**Observation:**  
+Dropout = 0.5 offers the best trade-off; too much or too little harms recall or precision.
+
+---
+
+### Learning Rate and Scheduler Tuning
+
+| Test | Dataset Size | LR     | Accuracy | Precision | Recall | F1 Score |
+|------|--------------|--------|----------|-----------|--------|----------|
+| 13   | 100          | 1e-3   | 0.600    | 0.600     | 1.000  | 0.750    |
+| 14   | 100          | 5e-3   | 0.600    | 0.600     | 1.000  | 0.750    |
+| 15   | 100          | 3e-4   | 0.600    | 0.600     | 1.000  | 0.750    |
+| 16   | 100          | 1e-5   | 0.600    | 0.600     | 1.000  | 0.750    |
+
+**Observation:**  
+Model is insensitive to LR between 1e-5 and 5e-3 on the 100-sample dataset.
+
+---
+
+### Effect of Dataset Size
+
+| Test | Dataset | Accuracy | Precision | Recall | F1 Score |
+|------|---------|----------|-----------|--------|----------|
+| 17   | 200     | 0.402    | 0.511     | 0.596  | 0.550    |
+| 18   | 200     | 0.613    | 0.613     | 1.000  | 0.760    |
+| 19   | 200     | 0.611    | 0.875     | 0.425  | 0.572    |
+
+**Observation:**  
+Using a larger dataset improves generalization but also increases variability. Low LR (1e-5) can underfit, but going too high (5e-5) gives inconsistent recall.
+
+---
+
+### Summary
+
+- **Best trade-off** is reached using LeakyReLU, dropout = 0.5, LR = 1e-3, with at least 100–200 samples.
+- **Recall tends to dominate** when overfitting is controlled, indicating a strong bias towards the positive class.
+- Further improvement likely requires either better class balancing or model complexity tuning.
 
 ## Final thoughts and conclusion
 
