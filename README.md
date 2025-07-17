@@ -72,7 +72,13 @@ The processed flux arrays are then stored as NumPy arrays and collectively form 
 
 ### Creation of the dataset
 
-
+The normalized curves are collected into a list of numpy array, representing the dataset, then ```PyTorch``` is used to create the ```DataLoader``` and
+consequently the train and test splits (see function ```torch_dataset```).
+```python
+data_train, data_test, labels_train, labels_test = train_test_split(data, labels, test_size=test_ratio, stratify=labels)
+train_set = KeplerDataset(data_train, labels_train)
+test_set = KeplerDataset(data_test, labels_test)
+```
 
 ## Model
 
