@@ -84,7 +84,7 @@ The processed flux arrays are then stored as NumPy arrays and collectively form 
 
 ### Evaluation loop
 
-### Results
+## Results
 
 
 
