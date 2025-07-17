@@ -138,11 +138,16 @@ During each epoch, the following five evaluation metrics are computed:
 After training, the epoch that achieved the best (lowest) validation loss is identified, and the corresponding metrics are reported as the model's best performance.
 
 ### Training loop
+
 The training loop follows a standard supervised learning pipeline. The **cross-entropy loss** function is used, which is well-suited for classification tasks as it penalizes incorrect class predictions with respect to the true label probabilities.
 
 At each epoch, the model is trained on batches of the training dataset, the size of which is kept at 128 (because of hardware limitations). After completing an epoch, the average **training loss** is computed and printed. This provides a basic diagnostic to monitor convergence and detect potential issues such as underfitting or overfitting. 
 
 ### Evaluation loop
+
+The evaluation function follows too a standard pipeline. The model is switched to evaluation mode and inference is run without gradient computation. It iterates through the test data loader, computes the outputs, derives predictions, and accumulates the loss and labels. The average loss is computed over all test samples.
+
+At the end, the function returns both the average loss and the pre-defined set of evaluation metrics, which are computed from the full set of predicted and true labels.
 
 ## Results
 
