@@ -37,17 +37,17 @@ The downloaded curves are saved in the specified folder as folders representing 
 
 The curves after downloading have to be normalized, padded or truncated and denoised. For this thre is the ```normalize_curves``` function in ```function.py```.  
 The process applies:  
-  - Removal of NaNs and normalization: ```lc = curve.remove_nans().normalize()``` removes NaNs and normalizes the function by dividing the flux by the median flux
-  - Outlier clipping through sigma-3 clipping: computes mean and standard deviation, defines a threshold and then remove data points outside the threshold-defined range
+  - **Removal of NaNs and normalization**: ```lc = curve.remove_nans().normalize()``` removes NaNs and normalizes the function by dividing the flux by the median flux
+  - **Outlier clipping through sigma-3 clipping**: computes mean and standard deviation, defines a threshold and then remove data points outside the threshold-defined range
     ```
     mean, std = np.mean(flux), np.std(flux)
     flux = np.clip(flux, mean - 3*std, mean + 3*std)
     ```
-  - Denoising: done through a simple median filter
+  - **Denoising**: done through a simple median filter
     ```
     flux = np.convolve(flux, np.ones(5)/5, mode='same')
     ```
-  - Padding/truncation: done to homogenize the sizes of light curves
+  - **Padding/truncation**: done to homogenize the sizes of light curves
     ```
     if len(flux) > padding_length:
       flux = flux[:padding_length]
