@@ -95,7 +95,7 @@ This reshaping step is critical to match the expected input shape of PyTorch con
 
 ## Model
 
-The model implemented is a 1D Convolutional Neural Network (CNN) designed for light curve analysis. It includes the following key components and architectural choices:
+The model implemented is a 1D Convolutional Neural Network (CNN). The architecture is structured as follows:
 
 - **Convolutional Layer**: A 1D convolution with configurable input channels, output channels, kernel size, and stride to extract features from the input time series.
 - **Dropout Layers**: applied to reduce overfitting by randomly deactivating neurons during training.
