@@ -1,0 +1,263 @@
+Test with barebone CNN
+
+TESTS WITH DIFFERENT ACTIVATION FUNCTIONS
+
+1st test: KeplerCNN
+dataset = 50
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = default
+
+Final:
+Best performance at epoch 78: {'accuracy': 0.5570776255707762, 'precision': 0.7536231884057971, 'recall': 0.3939393939393939, 'f1_score': 0.5174129353233831, 'roc_auc': 0.5992685475444097}
+
+2nd test: KeplerCNN
+dataset = 50
+batch = 128
+lr = 1e-3
+activation = ReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = default
+
+Final:
+Best performance at epoch 35: {'accuracy': 0.6027397260273972, 'precision': 0.6027397260273972, 'recall': 1.0, 'f1_score': 0.7521367521367521, 'roc_auc': 0.5}
+
+3rd test: KeplerCNN
+dataset = 50
+batch = 128
+lr = 1e-3
+activation = ELU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = default
+
+Final:
+Best performance at epoch 1: {'accuracy': 0.6027397260273972, 'precision': 0.6027397260273972, 'recall': 1.0, 'f1_score': 0.7521367521367521, 'roc_auc': 0.5}
+Epoch 100, Metrics: {'accuracy': 0.5525114155251142, 'precision': 0.8269230769230769, 'recall': 0.32575757575757575, 'f1_score': 0.4673913043478261, 'roc_auc': 0.6111546499477534}
+
+TESTS WITH DROPOUT LAYERS
+    From previous tests LeakyReLU leads to the most consistent results (metrics are 'near' to each other)
+    other activations give excessively high recall and very low separability (measured with roc_auc)
+    so we are now using LeakyReLU as our activation function
+
+4th test: KeplerCNN
+dataset = 50
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = no dropout layer after the convolutional one, only before the linear layer
+
+Final:
+Best performance at epoch 6: {'accuracy': 0.593607305936073, 'precision': 0.6048780487804878, 'recall': 0.9393939393939394, 'f1_score': 0.7359050445103857, 'roc_auc': 0.5041797283176594}
+
+5th test: KeplerCNN
+dataset = 50
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = no dropout layers
+
+Final:
+Best performance at epoch 13: {'accuracy': 0.5981735159817352, 'precision': 0.6078431372549019, 'recall': 0.9393939393939394, 'f1_score': 0.7380952380952381, 'roc_auc': 0.509926854754441}
+
+TEST WITH NORMALIZATION LAYERS
+    From the previous tests we can see that it is better to keep the dropout layers
+
+6th test: KeplerCNN
+dataset = 50
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = no normalization layers
+
+Final:
+Best performance at epoch 96: {'accuracy': 0.6027397260273972, 'precision': 0.6027397260273972, 'recall': 1.0, 'f1_score': 0.7521367521367521, 'roc_auc': 0.5}
+
+7th test: KeplerCNN
+dataset = 50
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = addition of another normalization layer + linear layer (with activation for added nonlinearity)
+
+Final:
+Best performance at epoch 96: {'accuracy': 0.6027397260273972, 'precision': 0.6027397260273972, 'recall': 1.0, 'f1_score': 0.7521367521367521, 'roc_auc': 0.5}
+
+8th test: KeplerCNN
+dataset = 100 -> Bigger dataset might benefit more from the additional layer
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = addition of another normalization layer + linear layer (with activation for added nonlinearity)
+
+Final:
+Best performance at epoch 6: {'accuracy': 0.6004618937644342, 'precision': 0.6004618937644342, 'recall': 1.0, 'f1_score': 0.7503607503607503, 'roc_auc': 0.5}
+
+TUNING DROPOUT RATE
+    For previous tests, we mantain 2 dropout layers, 1 nomralization layer, LeakyReLU as activation and use a bigger dataset (now cached, makes running models faster)
+
+9th test: KeplerCNN
+dataset = 100 -> new run with the best model so far with bigger dataset to update metrics
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.3
+Other parameters = default
+
+Final:
+Best performance at epoch 40: {'accuracy': 0.6004618937644342, 'precision': 0.6004618937644342, 'recall': 1.0, 'f1_score': 0.7503607503607503, 'roc_auc': 0.5}
+
+10th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.5 
+Other parameters = default
+
+Final:
+Best performance at epoch 21: {'accuracy': 0.581986143187067, 'precision': 0.6965174129353234, 'recall': 0.5384615384615384, 'f1_score': 0.6073752711496746, 'roc_auc': 0.5929301911960871}
+
+11th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.7 
+Other parameters = default
+
+Final:
+Best performance at epoch 27: {'accuracy': 0.6004618937644342, 'precision': 0.6004618937644342, 'recall': 1.0, 'f1_score': 0.7503607503607503, 'roc_auc': 0.5}
+
+12th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.6 
+Other parameters = default
+
+Final:
+Best performance at epoch 2: {'accuracy': 0.42032332563510394, 'precision': 0.5141065830721003, 'recall': 0.6307692307692307, 'f1_score': 0.5664939550949913, 'roc_auc': 0.3674077367718986}
+
+TUNING LEARNING RATE
+    From previou test, the dropout rate works well at 0.5
+
+13th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 5e-3 (from previous experience with AdamW seems to work well)
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.5 
+Other parameters = default
+
+Final:
+Best performance at epoch 14: {'accuracy': 0.6004618937644342, 'precision': 0.6004618937644342, 'recall': 1.0, 'f1_score': 0.7503607503607503, 'roc_auc': 0.5}
+
+14th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 3e-4 (also from previous experience with AdamW seems to work well)
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.5 
+Other parameters = default
+
+Final:
+Best performance at epoch 32: {'accuracy': 0.6004618937644342, 'precision': 0.6004618937644342, 'recall': 1.0, 'f1_score': 0.7503607503607503, 'roc_auc': 0.5}
+
+15th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 1e-5
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.5 
+Other parameters = default
+
+Final:
+Best performance at epoch 68: {'accuracy': 0.6004618937644342, 'precision': 0.6004618937644342, 'recall': 1.0, 'f1_score': 0.7503607503607503, 'roc_auc': 0.5}
+
+15th test: KeplerCNN
+dataset = 200 -> even bigger dataset (a bigger dataset would require too much time to download, this is the max)
+batch = 128
+lr = 1e-5
+activation = LeakyReLU
+patience = 3
+factor = 0.5
+dropout_rate = 0.5 
+Other parameters = default
+
+Final:
+
+
+SCHEDULER TUNING
+    Learning rate seems to give the best results at the stanad 1e-3
+
+16th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+factor = 0.5
+dropout_rate = 0.5 
+Scheduler: mode='min', factor=0.5, patience=2, threshold=1e-5, threshold_mode='rel', eps=1e-8
+
+Final:
+Best performance at epoch 44: {'accuracy': 0.6004618937644342, 'precision': 0.6004618937644342, 'recall': 1.0, 'f1_score': 0.7503607503607503, 'roc_auc': 0.5}
+
+17th test: KeplerCNN
+dataset = 100
+batch = 128
+lr = 1e-3
+activation = LeakyReLU
+factor = 0.05
+dropout_rate = 0.5 
+Scheduler: mode='min', factor=0.5, patience=2, threshold=1e-5, threshold_mode='rel', eps=1e-8
+
+Final:
+
+
+PARAMETER TUNING
+    Scheduler tuning did not show meaningful differences, keeping it standard
+
+
+
+
+
+
+
