@@ -31,4 +31,40 @@ Specifically, the ```search_lightcurve``` function retrieves available light cur
 lc = search_lightcurve(f"KIC {ID}", mission="Kepler").download_all(download_dir=download_dir)  
 ```
 
-The downloaded curves are saved in the specified folder as folders representing the various targets, each containig roughly 10-15 curves.
+The downloaded curves are saved in the specified folder as folders representing the various targets, each containing roughly 10-15 curves.
+
+### Preprocessing
+
+The curves after downloading have to be normalized, padded or truncated and denoised. For this thre is the ```normalize_curves``` function in ```function.py```.  
+The process applies:  
+  - Remove NaNs and normalize: ```lc = curve.remove_nans().normalize()``` removes NaNs and normalizes the function by dividing the flux by the median flux
+  - Outlier clipping through sigma-3 clipping: computes mean and standard deviation, defines a threshold and then remove data points outside the threshold-defined range
+    ```
+    mean, std = np.mean(flux), np.std(flux)
+    flux = np.clip(flux, mean - 3*std, mean + 3*std)
+    ```
+  - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
