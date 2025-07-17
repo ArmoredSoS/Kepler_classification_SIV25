@@ -72,6 +72,11 @@ The processed flux arrays are then stored as NumPy arrays and collectively form 
 
 ### Creation of the dataset
 
+For the dataset construction, it is important to note that the classification task is framed as a binary problem. Specifically, Kepler Objects of Interest (KOIs) with a `CONFIRMED` disposition are treated as **positive examples**, while those labeled as `FALSE POSITIVE` are treated as **negative examples**. Accordingly, the labels are assigned as follows:
+- `CONFIRMED` → `1` (positive class)  
+- `FALSE POSITIVE` → `0` (negative class)
+
+
 The normalized light curves are aggregated into a list of NumPy arrays, forming the dataset to be used in model training. PyTorch is then employed to construct `DataLoader` objects and to split the data into training and testing subsets via the `torch_dataset` function:
 ```python
 data_train, data_test, labels_train, labels_test = train_test_split(data, labels, test_size=test_ratio, stratify=labels)
