@@ -184,7 +184,7 @@ At the end, the function returns both the average loss and the pre-defined set o
 
 ## Results
 
-## Experimental Results
+## Experimental Results (See `Test_log.txt`)
 
 ### Overview
 
@@ -278,7 +278,7 @@ Using a larger dataset improves generalization but also increases variability. L
 | Test | Noise Augmentation | Accuracy | Precision | Recall | F1 Score |
 |------|---------------------|----------|-----------|--------|----------|
 | 22   | no augmentation | 0.613    | 0.613     | 1.000  | 0.760    |
-| 18   | augmentation   | 0.610    | 0.875     | 0.425  | 0.572    |
+| 19   | augmentation   | 0.610    | 0.875     | 0.425  | 0.572    |
 
 **Observation:**  
 Overall training behavior and suggests that noise augmentation improves model robustness and consistency.
