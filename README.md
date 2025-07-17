@@ -29,5 +29,6 @@ Once the Kepler IDs are retrieved, the ```lightkurve``` library is used to downl
 Specifically, the ```search_lightcurve``` function retrieves available light curve data for a given Kepler ID, while ```download_all downloads``` all matching data to a specified local directory:
 ```
 lc = search_lightcurve(f"KIC {ID}", mission="Kepler").download_all(download_dir=download_dir)  
-downloaded_curves.extend(lc)
 ```
+
+The downloaded curves are saved in the specified folder as folders representing the various targets, each containig roughly 10-15 curves.
