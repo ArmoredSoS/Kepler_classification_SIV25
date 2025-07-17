@@ -2,13 +2,18 @@
 
 ## Objective and approach:
 
-The main objective of this project is to create a minimal model, using standard components, that performs well in classificating light curves from the Kepler dataset.  
-This class
+  - The main objective of this project is to create a minimal model, using standard components, that performs well in classificating light curves from the Kepler dataset.  
+    This approach leads to a refined, lightweight, easy-to-run and implement model, that although has not state-of-the-art performance, still gives satisfactory results
+    that can be utilized as a first scrutiny when analyzing planet transit data.
 
+  - The choice of language for the project is (obviously) Python, thanks to its plentiful libraries for machine learning applications.
 
-
-  - This project presents a minimalistic approach to the classification of Kepler light curves using machine learning
-  - The methodology intentionally avoids novel architectures, relying instead on standard components
-  - The primary objective is to achieve strong classification performance using the simplest possible 1D convolutional neural network (CNN), refined through systematic tuning and selective modification of layers.
+  - The model choosen for the project is a 1D CNN, wo which then is added:
+    - Dropout layers
+    - Batch normalization
+    - Max pooling
+    - Global average pooling
+    - Flatten
+    - Fully connected layer (linear output)
 
 ## 
