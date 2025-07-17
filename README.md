@@ -268,11 +268,14 @@ Using a larger dataset improves generalization but also increases variability. L
 
 - **Best trade-off** is reached using LeakyReLU, dropout = 0.5, LR = 1e-3, with at least 100–200 samples.
 - **Recall tends to dominate** when overfitting is controlled, indicating a strong bias towards the positive class.
-- Further improvement likely requires either better class balancing or model complexity tuning.
+- Further improvement likely requires a bigger dataset and the consequential tuning for the best results.
 
 ## Final thoughts and conclusion
 
-
+Overall, considering the minimalistic architecture of the model and the small dataset (~3,400 light curves), the obtained results are satisfactory. 
+Nonetheless, there is clear potential for improvement, particularly through the use of a larger dataset, which could better support deeper architectures. 
+Preliminary tests with such an architecture incorporating extra convolutional and normalization layers—see `OverComplicatedCNN_Test` in `model.py`—resulted in poorer performance, 
+likely due to overfitting or insufficient data to fully exploit the increased model capacity.
 
 ## Sources
   - https://astroquery.readthedocs.io/en/latest/ipac/nexsci/nasa_exoplanet_archive.html
