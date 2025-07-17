@@ -158,7 +158,7 @@ if loss < best_loss:
 else:
   stale += 1
   if stale >= patience:
-  break #Not elegant but it works
+    break #Not elegant but it works
 ```
 
 After training, the epoch that achieved the best (lowest) validation loss is identified, and the corresponding metrics are reported as the model's best performance.
