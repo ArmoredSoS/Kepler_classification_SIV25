@@ -21,13 +21,13 @@ The core model is a one-dimensional convolutional neural network (1D CNN), enhan
 
 To retrieve the dataset, Kepler IDs are first obtained using the ```astroquery``` library, which provides direct access to the NASA Exoplanet Archive, including data from the Kepler mission. 
 The confirmed Kepler Objects of Interest (KOIs) are extracted using the ```query_criteria function```. This function supports a simplified SQL-like syntax for querying archive tables: 
-```
+```python
 KeplerIDs = NasaExoplanetArchive.query_criteria( table = "cumulative", select = "kepid, koi_disposition", where = "koi_disposition = 'CONFIRMED'")
 ```
 
 Once the Kepler IDs are retrieved, the ```lightkurve``` library is used to download the corresponding light curves. 
 Specifically, the ```search_lightcurve``` function retrieves available light curve data for a given Kepler ID, while ```download_all downloads``` all matching data to a specified local directory:
-```
+```python
 lc = search_lightcurve(f"KIC {ID}", mission="Kepler").download_all(download_dir=download_dir)  
 ```
 
