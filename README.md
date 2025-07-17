@@ -80,6 +80,13 @@ train_set = KeplerDataset(data_train, labels_train)
 test_set = KeplerDataset(data_test, labels_test)
 ```
 
+The ```KeplerDataset``` class is a class created specifically for Kepler data, it follows a standard implementation for a dataset, except for resizing the data tensor
+to avoid dimensionality issues with the model.
+```python
+self.data = torch.tensor(data[:, np.newaxis, :], dtype=torch.float32)
+self.labels = torch.tensor(labels, dtype = torch.int64)
+```
+
 ## Model
 
 
