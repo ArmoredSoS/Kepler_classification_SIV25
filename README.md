@@ -19,14 +19,14 @@ The core model is a one-dimensional convolutional neural network (1D CNN), enhan
 
 ### Retrieving and downloading the dataset
 
-To retrieve the dataset, Kepler IDs are first obtained using the ```astroquery``` library, which provides direct access to the NASA Exoplanet Archive, including data from the Kepler mission. 
-The confirmed Kepler Objects of Interest (KOIs) are extracted using the ```query_criteria function```. This function supports a simplified SQL-like syntax for querying archive tables: 
+To retrieve the dataset, Kepler IDs are first obtained using the `astroquery` library, which provides direct access to the NASA Exoplanet Archive, including data from the Kepler mission. 
+The confirmed Kepler Objects of Interest (KOIs) are extracted using the `query_criteria function`. This function supports a simplified SQL-like syntax for querying archive tables: 
 ```python
 KeplerIDs = NasaExoplanetArchive.query_criteria( table = "cumulative", select = "kepid, koi_disposition", where = "koi_disposition = 'CONFIRMED'")
 ```
 
-Once the Kepler IDs are retrieved, the ```lightkurve``` library is used to download the corresponding light curves. 
-Specifically, the ```search_lightcurve``` function retrieves available light curve data for a given Kepler ID, while ```download_all downloads``` all matching data to a specified local directory:
+Once the Kepler IDs are retrieved, the `lightkurve` library is used to download the corresponding light curves. 
+Specifically, the `search_lightcurve` function retrieves available light curve data for a given Kepler ID, while `download_all downloads` all matching data to a specified local directory:
 ```python
 lc = search_lightcurve(f"KIC {ID}", mission="Kepler").download_all(download_dir=download_dir)  
 ```
@@ -72,20 +72,20 @@ The processed flux arrays are then stored as NumPy arrays and collectively form 
 
 ### Creation of the dataset
 
-The normalized curves are collected into a list of numpy array, representing the dataset, then ```PyTorch``` is used to create the ```DataLoader``` and
-consequently the train and test splits (see function ```torch_dataset```).
+The normalized light curves are aggregated into a list of NumPy arrays, forming the dataset to be used in model training. PyTorch is then employed to construct `DataLoader` objects and to split the data into training and testing subsets via the `torch_dataset` function:
 ```python
 data_train, data_test, labels_train, labels_test = train_test_split(data, labels, test_size=test_ratio, stratify=labels)
 train_set = KeplerDataset(data_train, labels_train)
 test_set = KeplerDataset(data_test, labels_test)
 ```
 
-The ```KeplerDataset``` class is a class created specifically for Kepler data, it follows a standard implementation for a dataset, except for resizing the data tensor
-to avoid dimensionality issues with the model.
+The `KeplerDataset` class is a custom dataset wrapper tailored for Kepler light curve data. It adheres to the standard PyTorch `Dataset` interface but includes a reshaping operation to ensure compatibility with the 1D CNN input format. In particular, an additional channel dimension is introduced:
 ```python
 self.data = torch.tensor(data[:, np.newaxis, :], dtype=torch.float32)
-self.labels = torch.tensor(labels, dtype = torch.int64)
+self.labels = torch.tensor(labels, dtype=torch.int64)
 ```
+
+This reshaping step is critical to match the expected input shape of PyTorch convolutional layers `[batch_size, channels, sequence_length]`.
 
 ## Model
 
