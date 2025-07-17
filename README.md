@@ -148,13 +148,12 @@ During each epoch, the following five evaluation metrics are computed:
 - **Precision**: Indicates the model's ability to avoid false positives.
 - **Recall**: Indicates the model's ability to detect true positives (avoiding false negatives).
 - **F1-score**: Harmonic mean of precision and recall, offering a balanced measure.
-- **ROC AUC**: Evaluates the model's ability to distinguish between classes (separability).
 
 After training, the epoch that achieved the best (lowest) validation loss is identified, and the corresponding metrics are reported as the model's best performance.
 
 ### Training loop
 
-The training loop follows a standard supervised learning pipeline. The **cross-entropy loss** function is used, which is well-suited for classification tasks as it penalizes incorrect class predictions with respect to the true label probabilities.
+The training loop follows a standard supervised learning pipeline. The `CrossEntropyLoss` function is used, which is well-suited for classification tasks as it penalizes incorrect class predictions with respect to the true label probabilities.
 
 At each epoch, the model is trained on batches of the training dataset, the size of which is kept at 128 (because of hardware limitations). After completing an epoch, the average **training loss** is computed and printed. This provides a basic diagnostic to monitor convergence and detect potential issues such as underfitting or overfitting. 
 
