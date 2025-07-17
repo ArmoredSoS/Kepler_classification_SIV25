@@ -14,4 +14,9 @@ The core model is a one-dimensional convolutional neural network (1D CNN), enhan
 - **Global average pooling**: to condense feature maps before classification  
 - **Flattening layer**: to transform the pooled features into a vector  
 - **Fully connected (linear) layer**: to produce the final classification output
-## 
+
+## Implementation and code review
+
+### Retrieving and downloading the dataset
+
+
