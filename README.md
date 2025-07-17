@@ -165,7 +165,19 @@ At the end, the function returns both the average loss and the pre-defined set o
 
 ## Results
 
-
+## Sources
+  - https://astroquery.readthedocs.io/en/latest/ipac/nexsci/nasa_exoplanet_archive.html
+  - https://astroquery.readthedocs.io/en/latest/api/astroquery.ipac.nexsci.nasa_exoplanet_archive.NasaExoplanetArchiveClass.html#rb480749af1eb-1
+  - https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html
+  - https://exoplanetarchive.ipac.caltech.edu/docs/program_interfaces.html
+  - https://exoplanetarchive.ipac.caltech.edu/docs/API_kepcandidate_columns.html
+  - https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=cumulative
+  - https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc
+  - https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall
+  - https://docs.pytorch.org (used for a bit of everything)
+  - https://docs.astropy.org/en/stable/index.html
+  - https://astroquery.readthedocs.io/en/latest/
+  - https://scikit-learn.org/dev/user_guide.html    
 
 
 
