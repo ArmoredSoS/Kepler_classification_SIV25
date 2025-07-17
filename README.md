@@ -167,7 +167,14 @@ After training, the epoch that achieved the best (lowest) validation loss is ide
 
 The training loop follows a standard supervised learning pipeline. The `CrossEntropyLoss` function is used, which is well-suited for classification tasks as it penalizes incorrect class predictions with respect to the true label probabilities.
 
-At each epoch, the model is trained on batches of the training dataset, the size of which is kept at 128 (because of hardware limitations). After completing an epoch, the average **training loss** is computed and printed. This provides a basic diagnostic to monitor convergence and detect potential issues such as underfitting or overfitting. 
+Furthermore, also an augmentation step is added during training, injecting additional noise into the data using `randn_like()` and controlled by a noise level:
+```python
+noise = torch.randn_like(batch) * noise_lvl
+noisy_data = batch + noise
+return noisy_data
+```
+
+At each epoch, the model is trained on batches of the training dataset, the size of which is kept at 128 (because of hardware limitations). After completing an epoch, the average **training loss** is computed and printed. This provides a basic diagnostic to monitor convergence and detect potential issues such as underfitting or overfitting.  
 
 ### Evaluation loop
 
