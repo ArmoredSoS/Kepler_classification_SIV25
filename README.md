@@ -149,6 +149,18 @@ During each epoch, the following five evaluation metrics are computed:
 - **Recall**: Indicates the model's ability to detect true positives (avoiding false negatives).
 - **F1-score**: Harmonic mean of precision and recall, offering a balanced measure.
 
+Early stopping is used in order to stop the model if there are no improvements, saving inference time:
+```python
+if loss < best_loss:
+  best_loss = loss
+  best_metrics = evaluation
+  best_epoch = epoch + 1
+else:
+  stale += 1
+  if stale >= patience:
+  break #Not elegant but it works
+```
+
 After training, the epoch that achieved the best (lowest) validation loss is identified, and the corresponding metrics are reported as the model's best performance.
 
 ### Training loop
@@ -164,6 +176,12 @@ The evaluation function follows too a standard pipeline. The model is switched t
 At the end, the function returns both the average loss and the pre-defined set of evaluation metrics, which are computed from the full set of predicted and true labels.
 
 ## Results
+
+
+
+## Final thoughts and conclusion
+
+
 
 ## Sources
   - https://astroquery.readthedocs.io/en/latest/ipac/nexsci/nasa_exoplanet_archive.html
