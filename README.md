@@ -35,26 +35,54 @@ The downloaded curves are saved in the specified folder as folders representing 
 
 ### Preprocessing
 
-The curves after downloading have to be normalized, padded or truncated and denoised. For this thre is the ```normalize_curves``` function in ```function.py```.  
-The process applies:  
-  - **Removal of NaNs and normalization**: ```lc = curve.remove_nans().normalize()``` removes NaNs and normalizes the function by dividing the flux by the median flux
-  - **Outlier clipping through sigma-3 clipping**: computes mean and standard deviation, defines a threshold and then remove data points outside the threshold-defined range
-    ```
-    mean, std = np.mean(flux), np.std(flux)
-    flux = np.clip(flux, mean - 3*std, mean + 3*std)
-    ```
-  - **Denoising**: done through a simple median filter
-    ```
-    flux = np.convolve(flux, np.ones(5)/5, mode='same')
-    ```
-  - **Padding/truncation**: done to homogenize the sizes of light curves
-    ```
-    if len(flux) > padding_length:
+After downloading, the light curves undergo a preprocessing pipeline to ensure consistency and quality for model training. This is implemented in the `normalize_curves` function (in `function.py`). The steps involved are as follows:
+
+- **NaN Removal and Normalization**:  
+  Each curve is first cleaned and normalized via:
+  ```python
+  lc = curve.remove_nans().normalize()
+  ```
+  This removes missing values (NaNs) and normalizes the flux by dividing it by the median, ensuring the curves are on a comparable scale.
+
+- **Outlier Removal via Sigma-3 Clipping**:  
+  A 3σ clipping technique is applied to eliminate extreme flux values:
+  ```python
+  mean, std = np.mean(flux), np.std(flux)
+  flux = np.clip(flux, mean - 3*std, mean + 3*std)
+  ```
+  This retains flux values within three standard deviations of the mean, assuming an approximately normal distribution.
+
+- **Denoising with Median Filter**:  
+  A simple moving average filter smooths the signal to reduce noise:
+  ```python
+  flux = np.convolve(flux, np.ones(5)/5, mode='same')
+  ```
+
+- **Length Normalization (Padding/Truncation)**:  
+  All light curves are adjusted to a fixed length to ensure uniform input size:
+  ```python
+  if len(flux) > padding_length:
       flux = flux[:padding_length]
-    else:
-      #Using edge mode to limit the artificial creation of dips or spikes in the data when padding
-      flux = np.pad(flux, (0, padding_length - len(flux)), mode='edge') 
-    ```
+  else:
+      flux = np.pad(flux, (0, padding_length - len(flux)), mode='edge')
+  ```
+  Truncation is applied to longer sequences, while shorter ones are padded using edge values to avoid introducing artificial trends.
+
+The processed flux arrays are then stored as NumPy arrays and collectively form the final dataset used for training and evaluation.
+
+### Creation of the dataset
+
+
+
+### Model
+
+
+
+### Testing procedure
+
+
+
+### Results
 
 
 
