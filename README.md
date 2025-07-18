@@ -188,7 +188,7 @@ At the end, the function returns both the average loss and the pre-defined set o
 
 ### Overview
 
-We conducted a series of 22 tests on the `KeplerCNN` model, progressively evaluating the effects of various hyperparameters and architectural choices. These include activation functions, dropout and normalization layers, dataset size, learning rate, learning rate scheduler configuration, and noise augmentation.
+22 tests were conducted on the `KeplerCNN` model, progressively evaluating the effects of various hyperparameters and architectural choices. These include activation functions, dropout and normalization layers, dataset size, learning rate, learning rate scheduler configuration, and noise augmentation.
 
 ---
 
