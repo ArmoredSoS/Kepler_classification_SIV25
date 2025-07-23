@@ -182,8 +182,6 @@ The evaluation function follows too a standard pipeline. The model is switched t
 
 At the end, the function returns both the average loss and the pre-defined set of evaluation metrics, which are computed from the full set of predicted and true labels.
 
-## Results
-
 ## Experimental Results (See `Test_log.txt`)
 
 ### Overview
